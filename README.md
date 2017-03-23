@@ -20,4 +20,45 @@ the `easy-rpc-all-in-one-1.0.jar` include `easy-rpc-client-1.0.jar` and `easy-rp
 If you just want a xml/json server,take the `easy-rpc-server-1.0.jar`,client as the same!
 You can also directly copy the project to use!
 
-###  
+#### define 2 class
+`BooK.java`
+	public class Book {
+	
+	private int id;
+	private String name;
+	private boolean b;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public boolean isB() {
+		return b;
+	}
+	public void setB(boolean b) {
+		this.b = b;
+	}	
+	}</br>
+`User.java`
+	public class User {
+	
+	public String say(int i , String st){
+		return String.valueOf(i) +","+ st+"!";
+	}
+	public Book getFromOb( int i, Boolean b, String s){
+		Book book = new  Book();
+		book.setId(i);
+		book.setName(s);
+		book.setB(b);
+		return book;
+	}
+	}</br>	
+
+	
