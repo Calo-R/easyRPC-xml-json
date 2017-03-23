@@ -1,4 +1,4 @@
-# java-easyrpc-xml-json 
+# easyrpc-xml-json 
 * For Java server
 * This is a new java RPC framework
 * It is easy to use than the other you find.
