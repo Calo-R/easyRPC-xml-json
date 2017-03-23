@@ -23,41 +23,42 @@ You can also directly copy the project to use!
 #### define 2 class
 `BooK.java`</br>
 	public class Book {
-	private int id;
-	private String name;
-	private boolean b;
-	public int getId() {
-		return id;
+	   private int id;
+	   private String name;
+	   private boolean b;
+	   public int getId() {
+	      return id;
+	   }
+	   public void setId(int id) {
+	      this.id = id;
+	   }
+	   public String getName() {
+	      return name;
+	   }
+	   public void setName(String name) {
+	      this.name = name;
+	   }
+	   public boolean isB() {
+	      return b;
+	   }
+	   public void setB(boolean b) {
+	      this.b = b;
+	   }	
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public boolean isB() {
-		return b;
-	}
-	public void setB(boolean b) {
-		this.b = b;
-	}	
-	}
-`User.java`</br>
+</br>`User.java`</br>
 	public class User {
-	public String say(int i , String st){
-		return String.valueOf(i) +","+ st+"!";
+	   public String say(int i , String st){
+	      return String.valueOf(i) +","+ st+"!";
+	   }
+	   public Book getFromOb( int i, Boolean b, String s){
+	      Book book = new  Book();
+	      book.setId(i);
+	      book.setName(s);
+	      book.setB(b);
+	      return book;
+	   }
 	}
-	public Book getFromOb( int i, Boolean b, String s){
-		Book book = new  Book();
-		book.setId(i);
-		book.setName(s);
-		book.setB(b);
-		return book;
-	}
-	}
-	
+
+
 
 	
