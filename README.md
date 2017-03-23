@@ -22,7 +22,7 @@ You can also directly copy the project to use!
 
 #### define 2 class
 `BooK.java`</br>
-	<code>
+```
 	public class Book {
 	   private int id;
 	   private String name;
@@ -46,9 +46,9 @@ You can also directly copy the project to use!
 	      this.b = b;
 	   }	
 	}
-</code>
+```
 </br>`User.java`</br>
-<code>
+```
 	public class User {
 	   public String say(int i , String st){
 	      return String.valueOf(i) +","+ st+"!";
@@ -61,7 +61,7 @@ You can also directly copy the project to use!
 	      return book;
 	   }
 	}
-</code>
+```
 
 
 	
