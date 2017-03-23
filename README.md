@@ -23,7 +23,7 @@ You can also directly copy the project to use!
 
 #### define 2 class
 `BooK.java`</br>
-```
+```java
 	public class Book {
 	   private int id;
 	   private String name;
@@ -49,7 +49,7 @@ You can also directly copy the project to use!
 	}
 ```
 `User.java`</br>
-```
+```java
 public class User {
 	
 	public String sleep (int i){
@@ -70,7 +70,7 @@ public class User {
 }
 ```
 #### create server and register service
-```
+```java
 import com.calo.server.RpcServer;
 
 public class Server {
@@ -118,7 +118,7 @@ public class Server {
 
 ```
 #### create a rpc-json client, and call service "User.sleep"
-```
+```java
 import java.util.Map;
 import com.calo.client.JsonClient;
 
@@ -167,7 +167,7 @@ public class Client {
 }
 ```
 #### create a rpc-json client, and call service "User.say"
-```
+```java
 import java.util.Map;
 import com.calo.client.JsonClient;
 
@@ -219,7 +219,7 @@ public class Client {
 }
 ```
 #### create a rpc-json client, and call service "User.getBook"
-```
+```java
 import java.util.Map;
 import com.calo.client.JsonClient;
 
@@ -272,7 +272,7 @@ public class Client {
 }
 ```
 #### create a rpc-XML client, and call service "User.sleep"
-```
+```java
 import java.util.Map;
 
 public class Client {
@@ -313,7 +313,7 @@ public class Client {
 }
 ```
 #### create a rpc-XML client, and call service "User.say"
-```
+```java
 import java.util.Map;
 
 public class Client {
@@ -361,7 +361,7 @@ public class Client {
 }
 ```
 #### create a rpc-XML client, and call service "User.getBook"
-```
+```java
 import java.util.Map;
 
 public class Client {
