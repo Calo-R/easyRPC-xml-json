@@ -4,12 +4,13 @@ It support the way XML or JSON RPC to send request to server at the same time.
 
 ## What easyRPC based on?
 Based on json-rpc protocol and xml-rpc protocol.</br>
-Based on java Reflection,asynchronous programming,network programming</br>
+Based on java Reflection,asynchronous programming,network programming.</br>
 
 ## Why it is easy to use?
-1.You don't have to know the servlet,http or web server in java.</br>
-2.You just to know how to "getter()","setter()" and new an object!</br>
-3.It is ZERO-configure!</br>
+1.Don't have to know the servlet,http or web server in java.</br>
+2.Just need to know how to "getter()","setter()" and new an object!</br>
+3.ZERO-configure!</br>
+4.Supports all the programming languages which support json,xml and http.</br>
 
 ## How to use?
 There I provided 3 jar in folder myjar in the project
@@ -47,21 +48,366 @@ You can also directly copy the project to use!
 	   }	
 	}
 ```
-</br>`User.java`</br>
+`User.java`</br>
 ```
-	public class User {
-	   public String say(int i , String st){
-	      return String.valueOf(i) +","+ st+"!";
-	   }
-	   public Book getFromOb( int i, Boolean b, String s){
-	      Book book = new  Book();
-	      book.setId(i);
-	      book.setName(s);
-	      book.setB(b);
-	      return book;
-	   }
-	}
-```
-
-
+public class User {
 	
+	public String sleep (int i){
+		return "sleep "+String.valueOf(i) +" hour(s)"; 
+	}
+	
+	public String say(int i, String st){
+		return String.valueOf(i) +","+ st+"!";
+	}
+	
+	public Book getBook( int i, Boolean b, String s){
+		Book book = new  Book();
+		book.setId(i);
+		book.setName(s);
+		book.setB(b);
+		return book;
+	}
+}
+```
+#### create server and register service
+```
+import com.calo.server.RpcServer;
+
+public class Server {
+
+	public static void main(String[] args) {
+		
+		/**
+		 * create a server,receive xml or json request
+		 */
+		RpcServer rpcServer = new RpcServer();
+		
+		/**
+		 * URI is default '/', but you can change it as you want
+		 */
+		rpcServer.setURI("/rpc");
+		
+		/**
+		 * register service "User.say","User.getBook" and User.sleep
+		 * Service name is Case Sensitive!!!
+		 */
+		rpcServer.addHanlder("User.say", User.class);
+		rpcServer.addHanlder("User.getBook", User.class);
+		rpcServer.addHanlder("User.sleep", User.class);
+		
+		/**
+		 * server default listen on port 8080,but you can change it as you want
+		 * then,start the server 
+		 */
+		rpcServer.bind(9999).start();
+		/**
+		 * server start message:
+		 * 
+		 * Server registered following method:
+		 * User.sleep
+		 * User.say
+		 * User.getBook
+		 * 
+		 * Server listen on port:9999
+		 * Server URL:/rpc
+		 * 
+		 * RPC SERVER START SUCCESS.
+		 */
+	}
+}
+
+```
+#### create a rpc-json client, and call service "User.sleep"
+```
+import java.util.Map;
+import com.calo.client.JsonClient;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+		/**
+		 * create a json rpc client based on json-rpc protocol
+		 */
+		JsonClient jClient = new JsonClient();
+		
+		//set request url
+		jClient.setRequestURL("http://localhost:9999/rpc");
+		
+		//set request id,it is needed!
+		jClient.setRequestId(1);
+		
+		//set method called on server 
+		jClient.setRequestMethod("User.sleep");
+		
+		/**
+		 * set request parameter.
+		 * when the method on server just has one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		jClient.setJsonClientParamObject(10);
+		
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = jClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * {"jsonrpc":"2.0","result":"sleep 10 hour(s)","id":1}
+		 */
+	}
+}
+```
+#### create a rpc-json client, and call service "User.say"
+```
+import java.util.Map;
+import com.calo.client.JsonClient;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+		/**
+		 * create a json rpc client based on json-rpc protocol
+		 */
+		JsonClient jClient = new JsonClient();
+		
+		//set request url
+		jClient.setRequestURL("http://localhost:9999/rpc");
+		
+		//set request id,it is needed!
+		jClient.setRequestId(1);
+		
+		//set method called on server 
+		jClient.setRequestMethod("User.say");
+		
+		/**
+		 * set request parameter.
+		 * when the method on server just has MORE THAN one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		ArrayList<Object> parametersArray = new ArrayList<Object>();
+		parametersArray.add(2017);
+		parametersArray.add("hello word");
+		jClient.setJsonClientParamsArray(parametersArray);
+		
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = jClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * {"jsonrpc":"2.0","result":"2017,hello word!","id":1}
+		 */
+	}
+}
+```
+#### create a rpc-json client, and call service "User.getBook"
+```
+import java.util.Map;
+import com.calo.client.JsonClient;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+		/**
+		 * create a json rpc client based on json-rpc protocol
+		 */
+		JsonClient jClient = new JsonClient();
+		
+		//set request url
+		jClient.setRequestURL("http://localhost:9999/rpc");
+		
+		//set request id,it is needed!
+		jClient.setRequestId(1);
+		
+		//set method called on server 
+		jClient.setRequestMethod("User.getBook");
+		
+		/**
+		 * set request parameter.
+		 * when the method on server just has MORE THAN one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		JSONObject parametersObject = new JSONObject();
+		parametersObject.put("i", 10);
+		parametersObject.put("b", true);
+		parametersObject.put("s", "Linux");
+		jClient.setJsonClientParamsJsonObject(parametersObject);
+		
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = jClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * {"jsonrpc":"2.0","result":{"b":true,"id":10,"name":"Linux"},"id":1}
+		 */
+	}
+}
+```
+#### create a rpc-XML client, and call service "User.sleep"
+```
+import java.util.Map;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+
+		/**
+		 * create a xml client
+		 */
+		XmlClient xClient = new XmlClient();
+		xClient.setRequestURL("http://localhost:9999/rpc");
+		xClient.setRequestMethod("User.sleep");
+		
+		/**
+		 * set request parameter.
+		 * when the method on server just has one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		xClient.setXmlClientParamObject(10);
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = xClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * <?xml version='1.0'?><methodResponse><params><param><value><string>sleep 10 hour(s)</string></value></param></params></methodResponse>
+		 */
+	}
+}
+```
+#### create a rpc-XML client, and call service "User.say"
+```
+import java.util.Map;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+
+		/**
+		 * create a xml client
+		 */
+		XmlClient xClient = new XmlClient();
+		xClient.setRequestURL("http://localhost:9999/rpc");
+		xClient.setRequestMethod("User.say");
+		
+		ArrayList<Object> objects = new ArrayList<>();
+		objects.add(2017);
+		objects.add("hello world");
+		/**
+		 * set request parameter.
+		 * when the method on server just has MORE THAN one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		xClient.setXmlClientParamsArray(objects);
+		
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = xClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * <?xml version='1.0'?>
+		 * <methodResponse><params><param>
+		 * <value><string>2017,hello world!</string></value>
+		 * </param></params></methodResponse>
+		 */
+	}
+}
+```
+#### create a rpc-XML client, and call service "User.getBook"
+```
+import java.util.Map;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+
+		/**
+		 * create a xml client
+		 */
+		XmlClient xClient = new XmlClient();
+		xClient.setRequestURL("http://localhost:9999/rpc");
+		xClient.setRequestMethod("User.getBook");
+		
+		ArrayList<Object> objects = new ArrayList<>();
+		objects.add(2017);
+		objects.add(true);
+		objects.add("Linux");
+		/**
+		 * set request parameter.
+		 * when the method on server just has MORE THAN one parameter,you can use this method
+		 * the parameter's type should be just the java base type or String,
+		 * but not byte([]) and customized!!!
+		 */
+		xClient.setXmlClientParamsArray(objects);
+		
+		/**
+		 * send request
+		 * @return map<statusCode,httpEntityString></BR>
+		 * example : 200 , string </BR>
+		 */
+		Map<Integer, String> map = xClient.sendRequest();
+		for (Map.Entry<Integer, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		}
+		
+		/**
+		 * return result:
+		 * 200
+		 * <?xml version='1.0'?><methodResponse><params><param>
+		 * <value><array><data>
+		 * <value>true</value><value>2017</value>
+		 * <value>Linux</value>
+		 * </data></array></value>
+		 * <param></params></methodResponse>
+		 */
+	}
+}
+```
