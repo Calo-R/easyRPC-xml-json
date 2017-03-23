@@ -21,9 +21,8 @@ If you just want a xml/json server,take the `easy-rpc-server-1.0.jar`,client as 
 You can also directly copy the project to use!
 
 #### define 2 class
-`BooK.java`
+`BooK.java`</br>
 	public class Book {
-	
 	private int id;
 	private String name;
 	private boolean b;
@@ -45,10 +44,9 @@ You can also directly copy the project to use!
 	public void setB(boolean b) {
 		this.b = b;
 	}	
-	}</br>
-`User.java`
+	}
+`User.java`</br>
 	public class User {
-	
 	public String say(int i , String st){
 		return String.valueOf(i) +","+ st+"!";
 	}
@@ -59,6 +57,7 @@ You can also directly copy the project to use!
 		book.setB(b);
 		return book;
 	}
-	}</br>	
+	}
+	
 
 	
