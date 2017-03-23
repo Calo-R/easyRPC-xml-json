@@ -13,12 +13,12 @@ It support the way XML or JSON RPC to send request to server at the same time.
 * Supports all the programming languages which support json,xml and http.</br>
 
 ## How to use?
-There I provided 3 jar in folder myjar in the project,The `easy-rpc-all-in-one-1.0.jar` include `easy-rpc-client-1.0.jar` and `easy-rpc-server-1.0.jar`.If you just want a xml/json server,take the `easy-rpc-server-1.0.jar`,client as the same!You can also directly copy the project to use!</br>
-* `easy-rpc-all-in-one-1.0.jar`</br>
-* `easy-rpc-client-1.0.jar`</br>
-* `easy-rpc-server-1.0.jar`</br>
+There I provided 3 jar in folder myjar in the project:
+* `easy-rpc-all-in-one-1.0.jar`for server and client </br>
+* `easy-rpc-server-1.0.jar`just for server</br> 
+* `easy-rpc-client-1.0.jar`just for client</br>
 
-
+The `easy-rpc-all-in-one-1.0.jar` include `easy-rpc-client-1.0.jar` and `easy-rpc-server-1.0.jar`.If you just want a xml/json server,take the `easy-rpc-server-1.0.jar`,client as the same!You can also directly copy the project to use!</br>
 #### define 2 class
 `BooK.java`</br>
 ```java
