@@ -1,7 +1,9 @@
-# easyRPC-xml-json
+# easyRPC-xml-json 
+* For Java server
 * This is a new java RPC framework
 * It is easy to use than the other you find.
 * It support the way XML or JSON RPC to send request to server at the same time.
+* It supports all the programming languages client which support json,xml and http.
 
 ## What easyRPC based on?
 * json-rpc protocol. 
@@ -14,7 +16,6 @@
 * Don't have to know the servlet,http or web server in java.
 * Just need to know how to "getter()","setter()" and new an object!
 * ZERO-configure!
-* Supports all the programming languages client which support json,xml and http.
 
 ## How to use?
 There I provided 3 jar in folder myjar in the project:
