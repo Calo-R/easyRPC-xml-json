@@ -1,23 +1,27 @@
 # easyRPC-xml-json
-This is a new java RPC framework,it is easy to use than the other you find.
-It support the way XML or JSON RPC to send request to server at the same time.
+* This is a new java RPC framework
+* It is easy to use than the other you find.
+* It support the way XML or JSON RPC to send request to server at the same time.
 
 ## What easyRPC based on?
-* Based on json-rpc protocol and xml-rpc protocol.</br>
-* Based on java Reflection,asynchronous programming,network programming.</br>
+* json-rpc protocol. 
+* xml-rpc protocol.
+* java Reflection.
+* asynchronous programming
+* network programming.
 
 ## Why it is easy to use?
-* Don't have to know the servlet,http or web server in java.</br>
-* Just need to know how to "getter()","setter()" and new an object!</br>
-* ZERO-configure!</br>
-* Supports all the programming languages which support json,xml and http.</br>
+* Don't have to know the servlet,http or web server in java.
+* Just need to know how to "getter()","setter()" and new an object!
+* ZERO-configure!
+* Supports all the programming languages client which support json,xml and http.
 
 ## How to use?
 There I provided 3 jar in folder myjar in the project:
-* `easy-rpc-all-in-one-1.0.jar`for server and client </br>
-* `easy-rpc-server-1.0.jar`just for server</br> 
-* `easy-rpc-client-1.0.jar`just for client</br>
-* You can also directly copy the project to use!</br>
+* `easy-rpc-all-in-one-1.0.jar`for server and client 
+* `easy-rpc-server-1.0.jar`just for server
+* `easy-rpc-client-1.0.jar`just for client
+* You can also directly copy the project to use!
 #### define 2 class
 `BooK.java`</br>
 ```java
