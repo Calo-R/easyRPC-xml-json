@@ -18,5 +18,6 @@ There I provided 3 jar in folder myjar in the project
 `easy-rpc-server-1.0.jar`</br>
 the `easy-rpc-all-in-one-1.0.jar` include `easy-rpc-client-1.0.jar` and `easy-rpc-server-1.0.jar`.</br>
 If you just want a xml/json server,take the `easy-rpc-server-1.0.jar`,client as the same!
+You can also directly copy the project to use!
 
- 
+###  
